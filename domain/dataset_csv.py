@@ -25,3 +25,4 @@ class DatasetCSV(Dataset):
         except Exception as e:
             print(f"Error al cargar los datos desde el archivo CSV: {e}")
             raise
+        
