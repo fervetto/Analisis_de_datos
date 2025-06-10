@@ -8,6 +8,7 @@ class DatasetCSV(Dataset):
     Hereda de la clase Dataset.
     """
     def __init__(self, fuente):
+        super().__init__(fuente)
         """
         Inicializa el conjunto de datos con la fuente proporcionada.
         """
@@ -19,7 +20,7 @@ class DatasetCSV(Dataset):
             print(f"Datos cargados desde {self.fuente} con éxito.")
             if self.validar_datos():
                 print("Datos validados con éxito.")
-                # self.transformar_datos()
+                self.transformar_datos()
             
             # Validar datos
         except Exception as e:

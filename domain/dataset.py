@@ -44,7 +44,8 @@ class Dataset(ABC):
         Método abstracto para validar los datos cargados.
         Debe ser implementado por las subclases.
         """
-        if self.__datos(self) is None:
+        if self.datos.isnull().sum().sum() > 0:
+            print("Los datos contienen valores nulos.")
             raise ValueError("No se han cargado datos.")
 
         if self.datos.isnull().values.any():
@@ -57,11 +58,22 @@ class Dataset(ABC):
         
         return True
 
-    def transformar_datos(self):
         """
         Método abstracto para transformar los datos cargados.
         Debe ser implementado por las subclases.
         """
+    def transformar_datos(self):
+        if self.datos is not None:
+            self.__datos.columns = self.datos.columns.str.lower().str.replace(' ', '_')
+            self.__datos = self.datos.drop_duplicates()
+            for col in self.datos.select_dtypes(include=['object']).columns:
+                self.__datos[col] = self.datos[col].str.strip().str.lower()
+            print("Datos transformados con éxito.")
+        else:
+            print('No se han cargado datos para transformar.')
+            raise ValueError("No se han cargado datos para transformar.")
+
+
         pass
 
     def mostrar_resumen(self):
@@ -69,4 +81,5 @@ class Dataset(ABC):
         Método abstracto para mostrar un resumen de los datos.
         Debe ser implementado por las subclases.
         """
+        
         pass
