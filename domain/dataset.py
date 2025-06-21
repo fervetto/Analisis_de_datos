@@ -81,5 +81,5 @@ class Dataset(ABC):
         Método abstracto para mostrar un resumen de los datos.
         Debe ser implementado por las subclases.
         """
+        return print(self.datos.describe(include='all') if self.datos is not None else "No hay Datos")
         
-        pass
